@@ -26,6 +26,10 @@ class _FavoriteQuotesState extends State<FavoriteQuotes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("FAVOURITE"),
+      ),
       body: FutureBuilder(
           future: wholeQuotes,
           builder: (BuildContext context, snapshot) {
