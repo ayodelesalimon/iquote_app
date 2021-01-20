@@ -35,6 +35,9 @@ class _PageViewDemoState extends State<PageViewDemo> {
             MyPage3Widget(
               qoute: widget.quote,
             ),
+            MyPage4Widget(
+              qoute: widget.quote,
+            ),
           ],
         ),
       ),
@@ -94,6 +97,82 @@ class MyPage3Widget extends StatelessWidget {
           img: "assets/wak.jpg",
         ),
       ],
+    );
+  }
+}
+
+class MyPage4Widget extends StatelessWidget {
+  final String qoute;
+
+  const MyPage4Widget({Key key, this.qoute}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    return Scaffold(
+      body: SafeArea(
+        top: false,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.orange.shade400, Colors.deepOrange.shade900],
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                ),
+              ),
+            ),
+            SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0, left: 16),
+                    child: IconButton(
+                      icon: Icon(Icons.close),
+                      iconSize: 40,
+                      color: Colors.white,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Image.asset(
+                      "assets/2.png",
+                      height: screenHeight * 0.45,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 32.0, vertical: 8),
+                    child: Text(
+                      qoute,
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          "- Ayodele Salimonu",
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

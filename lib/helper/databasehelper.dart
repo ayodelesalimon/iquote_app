@@ -35,8 +35,13 @@ class DataBaseHelper {
 
   // Save the Quote once user clicked the button
   saveQuote(Quote quote) async {
-    var dbClient = await fetchMyDatabase;
-    await dbClient.insert(TABLE, quote.toMap());
+    if (quote.toMap().containsValue(ID) ==
+        fetchSavedQuotes().toString().contains(quote.quoteId.toString())) {
+      var dbClient = await fetchMyDatabase;
+      await dbClient.insert(TABLE, quote.toMap());
+    } else {
+      print("on it");
+    }
   }
 
   // Close the connection to database

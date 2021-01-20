@@ -58,6 +58,7 @@ class _FavoriteQuotesState extends State<FavoriteQuotes> {
                                     snapshot.data[index].quoteId);
                                 fetchDatafromTable();
                                 final removedSnackBar = SnackBar(
+                                  duration: Duration(seconds: 1),
                                   backgroundColor: Colors.black,
                                   content: Text(
                                     'Removed from Favorites',

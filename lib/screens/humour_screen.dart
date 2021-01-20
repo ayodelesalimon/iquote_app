@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flut/helper/databasehelper.dart';
 import 'package:flut/models/quote_model.dart';
@@ -8,6 +10,7 @@ import 'package:flut/widgets/animate.dart';
 import 'package:flut/widgets/flexible_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:share/share.dart';
 
 class AnimContainer extends StatefulWidget {
@@ -18,12 +21,30 @@ class AnimContainer extends StatefulWidget {
 class _AnimContainerState extends State<AnimContainer> {
   List data;
   var dbHelper;
+  var _index;
+  Timer time;
+  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30;
+
   // ignore: missing_return
   Future<String> loadJsonData() async {
     var jsonText = await rootBundle.loadString('json/quotes.json');
     setState(() => data = json.decode(jsonText));
     data.where((e) => e['category'] == 'humour').toList();
   }
+
+  void _random() {
+    setState(
+      () {
+        _index = Random(_index).nextInt(100);
+      },
+    );
+  }
+
+  //  CountdownTimer(
+  //                     endWidget: Text(data[_index]["Quote"]),
+  //                     onEnd: _random,
+  //                     endTime: endTime,
+  //                   ),
 
   @override
   void initState() {
@@ -81,7 +102,7 @@ class _AnimContainerState extends State<AnimContainer> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      data[index]['Quote'],
+                                      "  “ ${data[index]['Quote']} ”",
                                       style: TextStyle(fontSize: 25),
                                     ),
                                     SizedBox(
@@ -105,6 +126,7 @@ class _AnimContainerState extends State<AnimContainer> {
                                             );
                                             dbHelper.saveQuote(q);
                                             final removedSnackBar = SnackBar(
+                                              duration: Duration(seconds: 1),
                                               backgroundColor: Colors.black,
                                               content: Text(
                                                 'Added to Favorites',
@@ -138,7 +160,10 @@ class _AnimContainerState extends State<AnimContainer> {
                                               quoteAuthor: data[index]
                                                   ['Author'],
                                             );
-                                            dbHelper.saveQuote(q);
+                                            if (q != null) {
+                                              dbHelper.saveQuote(q);
+                                            }
+
                                             final removedSnackBar = SnackBar(
                                               backgroundColor: Colors.black,
                                               content: Text(
@@ -161,7 +186,7 @@ class _AnimContainerState extends State<AnimContainer> {
                       ));
                       // return Padding(
                       //     padding: const EdgeInsets.all(18.0),
-                      
+
                       //     child: Container(
                       //         height: 250,
                       //         decoration: BoxDecoration(

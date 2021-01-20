@@ -32,6 +32,8 @@ dependencies:
   share:
   sqflite:
   path:
+  persistent_bottom_nav_bar:
+  flutter_countdown_timer:
 
 dev_dependencies:
   flutter_test:
