@@ -31,19 +31,25 @@ class _AnimContainerState extends State<AnimContainer> {
   // ignore: missing_return
   Future<String> loadJsonData() async {
     var jsonText = await rootBundle.loadString('json/quotes.json');
-    setState(() => data = json.decode(jsonText));
-    data
-        .where((e) => e['category'] == "${widget.title}".toLowerCase())
-        .toList();
-  }
-
-  void _random() {
     setState(
       () {
-        _index = Random(_index).nextInt(100);
+        data = json.decode(jsonText);
       },
     );
+
+    // data
+    //     .where((e) => e['Category'] == '${widget.title}'.toLowerCase())
+    //     .toList();
+    // print('${widget.title}');
   }
+
+  // void _random() {
+  //   setState(
+  //     () {
+  //       _index = Random(_index).nextInt(100);
+  //     },
+  //   );
+  // }
 
   //  CountdownTimer(
   //                     endWidget: Text(data[_index]["Quote"]),
@@ -86,109 +92,130 @@ class _AnimContainerState extends State<AnimContainer> {
                   child: ListView.builder(
                     itemCount: data.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return WidgetANimator(Container(
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                  transitionDuration:
-                                      Duration(milliseconds: 350),
-                                  pageBuilder: (context, _, __) => PageViewDemo(
-                                        quote: data[index]['Quote'],
-                                      )),
-                            );
-                          },
-                          child: Card(
-                            margin: EdgeInsets.all(10),
-                            elevation: 1,
-                            child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "  “ ${data[index]['Quote']} ”",
-                                      style: TextStyle(fontSize: 25),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        IconButton(
-                                          icon: Icon(
-                                            Icons.favorite_rounded,
-                                            color: Colors.red,
-                                          ),
-                                          onPressed: () {
-                                            Quote q = Quote(
-                                              quoteId: null,
-                                              quoteText: data[index]['Quote'],
-                                              quoteAuthor: data[index]
-                                                  ['Author'],
-                                            );
-                                            dbHelper.saveQuote(q);
-                                            final removedSnackBar = SnackBar(
-                                              duration: Duration(seconds: 1),
-                                              backgroundColor: Colors.black,
-                                              content: Text(
-                                                'Added to Favorites',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15.0),
+                      return Container(
+                        child: ((data[index]['Category'] ==
+                                '${widget.title}'.toLowerCase())
+                            ? WidgetANimator(
+                                Container(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                            transitionDuration:
+                                                Duration(milliseconds: 350),
+                                            pageBuilder: (context, _, __) =>
+                                                PageViewDemo(
+                                                  quote: data[index]['Quote'],
+                                                )),
+                                      );
+                                    },
+                                    child: Card(
+                                      margin: EdgeInsets.all(10),
+                                      elevation: 1,
+                                      child: Padding(
+                                          padding: EdgeInsets.all(10),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                "  “ ${data[index]['Quote']} ”",
+                                                style: TextStyle(fontSize: 25),
                                               ),
-                                            );
-                                            Scaffold.of(context)
-                                                .showSnackBar(removedSnackBar);
-                                          },
-                                        ),
-                                        IconButton(
-                                          icon: Icon(
-                                            Icons.share,
-                                            color: Colors.red,
-                                          ),
-                                          onPressed: () {
-                                            Share.share(data[index]['Quote']);
-                                          },
-                                        ),
-                                        IconButton(
-                                          icon: Icon(
-                                            Icons.favorite_rounded,
-                                            color: Colors.red,
-                                          ),
-                                          onPressed: () {
-                                            Quote q = Quote(
-                                              quoteId: null,
-                                              quoteText: data[index]['Quote'],
-                                              quoteAuthor: data[index]
-                                                  ['Author'],
-                                            );
-                                            if (q != null) {
-                                              dbHelper.saveQuote(q);
-                                            }
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  IconButton(
+                                                    icon: Icon(
+                                                      Icons.favorite_rounded,
+                                                      color: Colors.red,
+                                                    ),
+                                                    onPressed: () {
+                                                      Quote q = Quote(
+                                                        quoteId: null,
+                                                        quoteText: data[index]
+                                                            ['Quote'],
+                                                        quoteAuthor: data[index]
+                                                            ['Author'],
+                                                      );
+                                                      dbHelper.saveQuote(q);
+                                                      final removedSnackBar =
+                                                          SnackBar(
+                                                        duration: Duration(
+                                                            seconds: 1),
+                                                        backgroundColor:
+                                                            Colors.black,
+                                                        content: Text(
+                                                          'Added to Favorites',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 15.0),
+                                                        ),
+                                                      );
+                                                      Scaffold.of(context)
+                                                          .showSnackBar(
+                                                              removedSnackBar);
+                                                    },
+                                                  ),
+                                                  IconButton(
+                                                    icon: Icon(
+                                                      Icons.share,
+                                                      color: Colors.red,
+                                                    ),
+                                                    onPressed: () {
+                                                      Share.share(
+                                                          data[index]['Quote']);
+                                                    },
+                                                  ),
+                                                  IconButton(
+                                                    icon: Icon(
+                                                      Icons.favorite_rounded,
+                                                      color: Colors.red,
+                                                    ),
+                                                    onPressed: () {
+                                                      Quote q = Quote(
+                                                        quoteId: null,
+                                                        quoteText: data[index]
+                                                            ['Quote'],
+                                                        quoteAuthor: data[index]
+                                                            ['Author'],
+                                                      );
+                                                      if (q != null) {
+                                                        dbHelper.saveQuote(q);
+                                                      }
 
-                                            final removedSnackBar = SnackBar(
-                                              backgroundColor: Colors.black,
-                                              content: Text(
-                                                'Added to Favorites',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15.0),
+                                                      final removedSnackBar =
+                                                          SnackBar(
+                                                        backgroundColor:
+                                                            Colors.black,
+                                                        content: Text(
+                                                          'Added to Favorites',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 15.0),
+                                                        ),
+                                                      );
+                                                      Scaffold.of(context)
+                                                          .showSnackBar(
+                                                              removedSnackBar);
+                                                    },
+                                                  ),
+                                                ],
                                               ),
-                                            );
-                                            Scaffold.of(context)
-                                                .showSnackBar(removedSnackBar);
-                                          },
-                                        ),
-                                      ],
+                                            ],
+                                          )),
                                     ),
-                                  ],
-                                )),
-                          ),
-                        ),
-                      ));
+                                  ),
+                                ),
+                              )
+                            : Container()),
+                      );
                       // return Padding(
                       //     padding: const EdgeInsets.all(18.0),
 

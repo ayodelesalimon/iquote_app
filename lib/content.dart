@@ -12,7 +12,7 @@ class NewHome extends StatefulWidget {
 
 class _NewHomeState extends State<NewHome> {
   DateTime alert;
-  var _index;
+  var index;
   List data;
 
   Future<String> loadJsonData() async {
@@ -30,7 +30,7 @@ class _NewHomeState extends State<NewHome> {
 
   @override
   void setState(fn) {
-    _index = Random(_index).nextInt(3000);
+    // _index = Random(_index).nextInt(3000);
     super.setState(fn);
   }
 
@@ -39,23 +39,30 @@ class _NewHomeState extends State<NewHome> {
     String sign = '"';
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: TimerBuilder.periodic(Duration(seconds: 15), builder: (context) {
-        return Container(
-            height: size.height * .45,
-            decoration: BoxDecoration(
-              color: Colors.orange[500],
-            ),
-            child: ListTile(
-              trailing: Icon(Icons.favorite_border_rounded),
-              subtitle: Text(
-                " krjrjrjjrjr",
-                style: TextStyle(
-                  fontSize: 23.0,
-                  color: Colors.black,
-                ),
+      body: Container(
+        child: data == null
+            ? Center(
+                child: CircularProgressIndicator(
+                backgroundColor: Colors.orange[400],
+              ))
+            : ListView.builder(
+                itemCount: data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    child: ((data[index]['Category'] == "inspiration")
+                        ? Card(
+                            margin: EdgeInsets.all(10),
+                            elevation: 1,
+                            child: Text(
+                              "  “ ${data[index]['Quote']} ”",
+                              style: TextStyle(fontSize: 25),
+                            ),
+                          )
+                        : Container()),
+                  );
+                },
               ),
-            ));
-      }),
+      ),
     );
   }
 }

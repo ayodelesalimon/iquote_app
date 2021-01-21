@@ -1,3 +1,5 @@
+import 'package:flut/card.dart';
+import 'package:flut/content.dart';
 import 'package:flut/screens/humour_screen.dart';
 import 'package:flut/util/category.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +32,7 @@ class NewWidget extends StatelessWidget {
           PageRouteBuilder(
               transitionDuration: Duration(milliseconds: 350),
               pageBuilder: (context, _, __) => AnimContainer(
-                    title: category.name.toLowerCase(),
+                    title: category.name,
                   )),
         );
       },
@@ -84,7 +86,7 @@ class NewWidget extends StatelessWidget {
                         color: Colors.transparent,
                         child: Container(
                           child: Text(
-                            category.name,
+                            category.name.toUpperCase(),
                             style: TextStyle(
                                 fontSize: 30,
                                 color: Colors.white,
