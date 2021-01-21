@@ -14,6 +14,9 @@ import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:share/share.dart';
 
 class AnimContainer extends StatefulWidget {
+  final String title;
+
+  const AnimContainer({Key key, this.title}) : super(key: key);
   @override
   _AnimContainerState createState() => _AnimContainerState();
 }
@@ -29,7 +32,9 @@ class _AnimContainerState extends State<AnimContainer> {
   Future<String> loadJsonData() async {
     var jsonText = await rootBundle.loadString('json/quotes.json');
     setState(() => data = json.decode(jsonText));
-    data.where((e) => e['category'] == 'humour').toList();
+    data
+        .where((e) => e['category'] == "${widget.title}".toLowerCase())
+        .toList();
   }
 
   void _random() {

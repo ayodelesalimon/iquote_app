@@ -1,4 +1,3 @@
-import 'package:flut/card.dart';
 import 'package:flut/screens/humour_screen.dart';
 import 'package:flut/util/category.dart';
 import 'package:flutter/material.dart';

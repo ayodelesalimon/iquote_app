@@ -10,7 +10,7 @@ class Category {
 
 List categorys = [
   Category(
-      name: "JOKES",
+      name: "LIFE",
       imgPath: "assets/2.png",
       colors: [Colors.orange.shade400, Colors.deepOrange.shade900]),
   Category(

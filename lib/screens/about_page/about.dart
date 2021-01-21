@@ -15,19 +15,25 @@ class _AboutPageState extends State<AboutPage> {
           overflow: Overflow.visible,
           children: [
             Container(
+              child: Center(
+                child: Text(
+                  "Settings",
+                  style: TextStyle(color: Colors.white, fontSize: 35),
+                ),
+              ),
               height: 200,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage("assets/bg.png"),
+                  image: AssetImage("assets/black.png"),
                 ),
               ),
             ),
             Positioned(
-              left: 30,
+              left: 27,
               top: 170,
               child: Container(
-                width: 350,
+                width: 360,
                 height: 100,
                 decoration: BoxDecoration(
                   color: Colors.amber,
@@ -36,12 +42,15 @@ class _AboutPageState extends State<AboutPage> {
               ),
             ),
             Positioned(
-              left: 30,
+              left: 27,
               top: 420,
               child: Align(
                 alignment: Alignment.center,
                 child: Container(
-                  width: 350,
+                  child: ListTile(
+                    leading: Icon(Icons.accessible),
+                  ),
+                  width: 360,
                   height: 100,
                   decoration: BoxDecoration(
                     color: Colors.red,
@@ -51,12 +60,12 @@ class _AboutPageState extends State<AboutPage> {
               ),
             ),
             Positioned(
-              left: 30,
+              left: 27,
               top: 295,
               child: Align(
                 alignment: Alignment.center,
                 child: Container(
-                  width: 350,
+                  width: 360,
                   height: 100,
                   decoration: BoxDecoration(
                     color: Colors.red,

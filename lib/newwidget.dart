@@ -1,4 +1,4 @@
-import 'package:flut/quotedetails.dart';
+import 'package:flut/screens/humour_screen.dart';
 import 'package:flut/util/category.dart';
 import 'package:flutter/material.dart';
 
@@ -29,8 +29,8 @@ class NewWidget extends StatelessWidget {
           context,
           PageRouteBuilder(
               transitionDuration: Duration(milliseconds: 350),
-              pageBuilder: (context, _, __) => QouteDetails(
-                    category: category,
+              pageBuilder: (context, _, __) => AnimContainer(
+                    title: category.name.toLowerCase(),
                   )),
         );
       },
