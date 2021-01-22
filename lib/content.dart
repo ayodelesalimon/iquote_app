@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'dart:math';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:timer_builder/timer_builder.dart';
+
 
 class NewHome extends StatefulWidget {
   @override
@@ -35,9 +35,7 @@ class _NewHomeState extends State<NewHome> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    String sign = '"';
-    var size = MediaQuery.of(context).size;
+   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         child: data == null

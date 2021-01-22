@@ -30,7 +30,7 @@ List categorys = [
       imgPath: "assets/5.png",
       colors: [const Color(0xFF90203F), const Color(0xFF537895)]),
   Category(
-      name: "JOKES",
+      name: "hope",
       imgPath: "assets/shock.png",
       colors: [const Color(0xFFF58573), const Color(0xFFF4A25F)]),
   Category(

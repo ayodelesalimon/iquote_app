@@ -1,16 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flut/helper/databasehelper.dart';
 import 'package:flut/models/quote_model.dart';
 import 'package:flut/quoteview.dart';
-import 'package:flut/screens/favourite.dart';
+
 import 'package:flut/widgets/animate.dart';
 import 'package:flut/widgets/flexible_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
+
 import 'package:share/share.dart';
 
 class AnimContainer extends StatefulWidget {
@@ -31,16 +30,9 @@ class _AnimContainerState extends State<AnimContainer> {
   // ignore: missing_return
   Future<String> loadJsonData() async {
     var jsonText = await rootBundle.loadString('json/quotes.json');
-    setState(
-      () {
-        data = json.decode(jsonText);
-      },
-    );
-
-    // data
-    //     .where((e) => e['Category'] == '${widget.title}'.toLowerCase())
-    //     .toList();
-    // print('${widget.title}');
+    setState(() {
+      data = json.decode(jsonText);
+    });
   }
 
   // void _random() {
@@ -50,12 +42,6 @@ class _AnimContainerState extends State<AnimContainer> {
   //     },
   //   );
   // }
-
-  //  CountdownTimer(
-  //                     endWidget: Text(data[_index]["Quote"]),
-  //                     onEnd: _random,
-  //                     endTime: endTime,
-  //                   ),
 
   @override
   void initState() {

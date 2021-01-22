@@ -1,12 +1,14 @@
-import 'package:flut/newwidget.dart';
-import 'package:flut/screens/favourite.dart';
-import 'package:flut/screens/homepage.dart';
-import 'package:flut/screens/morepage.dart';
+
+import 'package:flut/screens/about_page/morepage.dart';
+
+import 'package:flut/screens/favourite/favourite.dart';
+import 'package:flut/screens/home/homepage.dart';
+
 import 'package:flut/util/category.dart';
 import 'package:flut/widgets/navybar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+
 
 class Home extends StatefulWidget {
   final Category category;
@@ -17,8 +19,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // PersistentTabController _controller =
-  //     PersistentTabController(initialIndex: 0);
   PageController _pageController;
   int currentPage = 0;
   bool isActive = true;

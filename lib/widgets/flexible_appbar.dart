@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
-
-import 'package:flut/screens/favourite.dart';
+import 'package:flut/screens/favourite/favourite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 
