@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
-import 'package:flut/screens/favourite/favourite.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
+import 'package:flutter/services.dart';
 
 class MyFlexiableAppBar extends StatefulWidget {
   const MyFlexiableAppBar();
@@ -13,97 +13,111 @@ class MyFlexiableAppBar extends StatefulWidget {
 
 class _MyFlexiableAppBarState extends State<MyFlexiableAppBar> {
   final double appBarHeight = 66.0;
+  List data;
+  var _index;
 
-  var greeting = "jjjjj";
-  var greet = "llllll";
-  var index = Random().nextInt(2);
+  // ignore: missing_return
+  Future<String> loadJsonData() async {
+    var jsonText = await rootBundle.loadString('json/quotes.json');
+    setState(() => data = json.decode(jsonText));
+  }
 
-  List name = ["Ayodele", "Shade", "Bukky", "Tola"];
+  @override
+  void initState() {
+    this.loadJsonData();
+    _changeQuote();
+    super.initState();
+  }
+
+  _changeQuote() {
+    setState(
+      () {
+        _index = Random(_index).nextInt(3000);
+      },
+    );
+  }
+
+//  const oneSec = const Duration(seconds: 60);
+//   new Timer.periodic(oneSec, (Timer t) => _changeQuote());
+
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
 
-    // Timer(Duration(seconds: 5), () {
-    //   setState(() {
-    //     greeting = name[index];
-    //   });
-    // });
-
-    // Timer.periodic(Duration(seconds: 5), (timer) {
-    // if (DateTime.now().second == 4) {
-    //   //Stop if second equal to 4
-    //   timer.cancel();
-    // }
-    //   setState(() {
-    //     greet = name[index];
-    //   });
-    // });
-
-    return new Container(
+    // return FutureBuilder(
+    //   future: DefaultAssetBundle.of(context).loadString('json/quotes.json'),
+    //   // ignore: missing_return
+    //   builder: (context, snapshot) {
+    //     var quote = json.decode(snapshot.data.toString());
+    //     if (snapshot.hasData) {
+    return Container(
       padding: new EdgeInsets.only(top: statusBarHeight),
       height: statusBarHeight + appBarHeight,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                PageRouteBuilder(
-                    transitionDuration: Duration(milliseconds: 350),
-                    pageBuilder: (context, _, __) => FavoriteQuotes()),
-              );
-            },
-            icon: Icon(Icons.favorite),
-          ),
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text("Quote of the day",
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w800,
-                        fontFamily: 'Poppins',
-                        fontSize: 28.0)),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: Text(
-                        greet,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Poppins',
-                            fontSize: 16.0),
+      child: data == null
+          ? Center(
+              child: CircularProgressIndicator(
+              backgroundColor: Colors.orange[400],
+            ))
+          : SingleChildScrollView(
+              child: SizedBox(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text("Quote of the day",
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w800,
+                                  fontFamily: 'Poppins',
+                                  fontSize: 28.0)),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(18.0),
+                                child: Text(
+                                  data == null
+                                      ? "No quote"
+                                      : data[_index]["Quote"],
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Poppins',
+                                      fontSize: 16.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  data == null
+                                      ? "Quote"
+                                      : data[_index]["Author"],
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12.0),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                  ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        greeting,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Poppins',
-                            fontSize: 16.0),
-                      )
-                    ],
-                  ),
-                )
-              ],
+              ),
             ),
-          ),
-        ],
-      ),
       decoration: new BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.fill,
@@ -112,4 +126,7 @@ class _MyFlexiableAppBarState extends State<MyFlexiableAppBar> {
       ),
     );
   }
+  //     },
+  //   );
+  // }
 }

@@ -34,6 +34,11 @@ dependencies:
   path:
   persistent_bottom_nav_bar:
   flutter_countdown_timer:
+  smooth_page_indicator:
+  screenshot:
+  image_gallery_saver:
+  path_provider:
+  permission_handler:
 
 dev_dependencies:
   flutter_test:
@@ -55,7 +60,6 @@ flutter:
     - json/
   #   - images/a_dot_ham.jpeg
 
-  
   fonts:
     - family: Poppins
       fonts:
@@ -74,7 +78,7 @@ flutter:
 
     - family: Josefin
       fonts:
-        - asset: fonts/Josefin.ttf      
+        - asset: fonts/Josefin.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -1,15 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flut/helper/databasehelper.dart';
 import 'package:flut/models/quote_model.dart';
-import 'package:flut/quoteview.dart';
-
+import 'package:flut/page_view_indicator.dart';
 import 'package:flut/widgets/animate.dart';
 import 'package:flut/widgets/flexible_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:share/share.dart';
 
 class AnimContainer extends StatefulWidget {
@@ -23,6 +20,7 @@ class AnimContainer extends StatefulWidget {
 class _AnimContainerState extends State<AnimContainer> {
   List data;
   var dbHelper;
+  // ignore: unused_field
   var _index;
   Timer time;
   int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30;
@@ -52,11 +50,13 @@ class _AnimContainerState extends State<AnimContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: NestedScrollView(
+    return Material(
+      child: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
+              automaticallyImplyLeading: false,
+              //title: Text(widget.title),
               expandedHeight: 300.0,
               floating: false,
               pinned: true,
@@ -91,21 +91,45 @@ class _AnimContainerState extends State<AnimContainer> {
                                             transitionDuration:
                                                 Duration(milliseconds: 350),
                                             pageBuilder: (context, _, __) =>
-                                                PageViewDemo(
+                                                HomePage(
+                                                  author: data[index]['Author'],
                                                   quote: data[index]['Quote'],
                                                 )),
                                       );
                                     },
                                     child: Card(
+                                      shadowColor: Colors.amberAccent,
+                                      borderOnForeground: true,
                                       margin: EdgeInsets.all(10),
-                                      elevation: 1,
+                                      elevation: 5,
                                       child: Padding(
                                           padding: EdgeInsets.all(10),
                                           child: Column(
                                             children: [
                                               Text(
                                                 "  “ ${data[index]['Quote']} ”",
-                                                style: TextStyle(fontSize: 25),
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: Colors.black,
+                                                  fontFamily: 'Ubuntu',
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    "  - ${data[index]['Author']} ",
+                                                    style: TextStyle(
+                                                      fontSize: 13,
+                                                      color: Colors.black,
+                                                      fontFamily: 'Ubuntu',
+                                                    ),
+                                                  )
+                                                ],
                                               ),
                                               SizedBox(
                                                 height: 20,

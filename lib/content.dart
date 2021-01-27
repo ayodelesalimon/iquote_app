@@ -15,6 +15,7 @@ class _NewHomeState extends State<NewHome> {
   var index;
   List data;
 
+  // ignore: missing_return
   Future<String> loadJsonData() async {
     var jsonText = await rootBundle.loadString('json/quotes.json');
     setState(() => data = json.decode(jsonText));

@@ -19,6 +19,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // ignore: unused_field
   PageController _pageController;
   int currentPage = 0;
   bool isActive = true;

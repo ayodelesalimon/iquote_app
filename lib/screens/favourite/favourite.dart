@@ -1,5 +1,6 @@
 import 'package:flut/helper/databasehelper.dart';
 import 'package:flut/models/quote_model.dart';
+import 'package:flut/page_view_indicator.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteQuotes extends StatefulWidget {
@@ -38,37 +39,50 @@ class _FavoriteQuotesState extends State<FavoriteQuotes> {
                 return ListView.builder(
                     itemCount: snapshot.data.length,
                     itemBuilder: (builder, index) {
-                      return Card(
-                        child: ListTile(
-                          title: Text(
-                            snapshot.data[index].quoteText,
-                            style: TextStyle(
-                                fontSize: 20.0, fontFamily: 'quoteScript'),
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                                transitionDuration: Duration(milliseconds: 350),
+                                pageBuilder: (context, _, __) => HomePage(
+                                      author: snapshot.data[index].quoteText,
+                                      quote: snapshot.data[index].quoteAuthor,
+                                    )),
+                          );
+                        },
+                        child: Card(
+                          child: ListTile(
+                            title: Text(
+                              snapshot.data[index].quoteText,
+                              style: TextStyle(
+                                  fontSize: 20.0, fontFamily: 'quoteScript'),
+                            ),
+                            subtitle: Text(
+                              snapshot.data[index].quoteAuthor,
+                              style: TextStyle(
+                                  fontSize: 17.0, fontFamily: 'quoteScript'),
+                            ),
+                            trailing: IconButton(
+                                icon: Icon(Icons.remove_circle),
+                                color: Colors.red,
+                                onPressed: () {
+                                  dbHelper.deleteQuoteFromFavorite(
+                                      snapshot.data[index].quoteId);
+                                  fetchDatafromTable();
+                                  final removedSnackBar = SnackBar(
+                                    duration: Duration(seconds: 1),
+                                    backgroundColor: Colors.black,
+                                    content: Text(
+                                      'Removed from Favorites',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 15.0),
+                                    ),
+                                  );
+                                  Scaffold.of(context)
+                                      .showSnackBar(removedSnackBar);
+                                }),
                           ),
-                          subtitle: Text(
-                            snapshot.data[index].quoteAuthor,
-                            style: TextStyle(
-                                fontSize: 17.0, fontFamily: 'quoteScript'),
-                          ),
-                          trailing: IconButton(
-                              icon: Icon(Icons.remove_circle),
-                              color: Colors.red,
-                              onPressed: () {
-                                dbHelper.deleteQuoteFromFavorite(
-                                    snapshot.data[index].quoteId);
-                                fetchDatafromTable();
-                                final removedSnackBar = SnackBar(
-                                  duration: Duration(seconds: 1),
-                                  backgroundColor: Colors.black,
-                                  content: Text(
-                                    'Removed from Favorites',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15.0),
-                                  ),
-                                );
-                                Scaffold.of(context)
-                                    .showSnackBar(removedSnackBar);
-                              }),
                         ),
                       );
                     });

@@ -1,4 +1,3 @@
-import 'package:flut/widgets/flexible_appbar.dart';
 import 'package:flutter/material.dart';
 
 class AboutPage extends StatefulWidget {

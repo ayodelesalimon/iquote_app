@@ -1,4 +1,3 @@
-
 import 'package:flut/screens/quotes/quote_list.dart';
 import 'package:flut/util/category.dart';
 import 'package:flut/widgets/card_shape.dart';
@@ -106,4 +105,3 @@ class NewWidget extends StatelessWidget {
     );
   }
 }
-

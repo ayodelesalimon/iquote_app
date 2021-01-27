@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class PageViewDemo extends StatefulWidget {
@@ -24,6 +26,7 @@ class _PageViewDemoState extends State<PageViewDemo> {
     return Scaffold(
       body: Container(
         child: PageView(
+          pageSnapping: false,
           controller: _controller,
           children: [
             MyPage1Widget(
@@ -36,6 +39,9 @@ class _PageViewDemoState extends State<PageViewDemo> {
               qoute: widget.quote,
             ),
             MyPage4Widget(
+              qoute: widget.quote,
+            ),
+            MyPage5Widget(
               qoute: widget.quote,
             ),
           ],
@@ -95,6 +101,24 @@ class MyPage3Widget extends StatelessWidget {
           mediumRed,
           text: qoute,
           img: "assets/wak.jpg",
+        ),
+      ],
+    );
+  }
+}
+
+class MyPage5Widget extends StatelessWidget {
+  final String qoute;
+
+  const MyPage5Widget({Key key, this.qoute}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        MyBox(
+          mediumRed,
+          text: qoute,
+          img: "assets/rock.png",
         ),
       ],
     );
@@ -207,19 +231,43 @@ class MyBox extends StatelessWidget {
             image: AssetImage(img),
           ),
         ),
+
         // margin: EdgeInsets.all(10),
 
         height: (height == null) ? 150 : height,
         child: (text == null)
             ? null
-            : Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Text(
-                    text,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
+            : BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 3),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              " “ ",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontFamily: 'Josefin',
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          text,
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.white,
+                              fontFamily: 'Josefin',
+                              fontWeight: FontWeight.w200,
+                              fontStyle: FontStyle.normal),
+                        ),
+                      ],
                     ),
                   ),
                 ),
