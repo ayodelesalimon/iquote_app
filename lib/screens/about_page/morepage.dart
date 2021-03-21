@@ -1,4 +1,4 @@
-import 'package:flut/screens/about_page/about.dart';
+import 'package:flut/screens/about_page/info.dart';
 import 'package:flutter/material.dart';
 
 class MorePage extends StatefulWidget {
@@ -11,7 +11,7 @@ class _MorePageState extends State<MorePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: AboutPage(),
+        child: Info(),
       ),
     );
   }

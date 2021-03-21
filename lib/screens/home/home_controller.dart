@@ -1,14 +1,10 @@
-
 import 'package:flut/screens/about_page/morepage.dart';
-
 import 'package:flut/screens/favourite/favourite.dart';
 import 'package:flut/screens/home/homepage.dart';
-
 import 'package:flut/util/category.dart';
 import 'package:flut/widgets/navybar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 class Home extends StatefulWidget {
   final Category category;
@@ -45,43 +41,43 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: BottomNavyBar(
-          iconSize: 25,
-          onItemSelected: (index) {
-            onTabTapped(index);
-          },
-          backgroundColor: Colors.white,
-          currentIndex: 0,
-          items: [
-            BottomNavyBarItem(
-                icon: Icon(
-                  Icons.home,
+      bottomNavigationBar: BottomNavyBar(
+        iconSize: 25,
+        onItemSelected: (index) {
+          onTabTapped(index);
+        },
+        backgroundColor: Colors.white,
+        currentIndex: 0,
+        items: [
+          BottomNavyBarItem(
+              icon: Icon(
+                Icons.home,
+              ),
+              title: Text("HOME"),
+              activeColor: Colors.deepOrange,
+              inactiveColor: Colors.grey),
+          BottomNavyBarItem(
+              icon: Icon(
+                Icons.favorite,
+              ),
+              title: Text(
+                "FAVOURITE",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 10,
+                  fontFamily: 'Poppins',
                 ),
-                title: Text("HOME"),
-                activeColor: Colors.deepOrange,
-                inactiveColor: Colors.grey),
-            BottomNavyBarItem(
-                icon: Icon(
-                  Icons.favorite,
-                ),
-                title: Text(
-                  "FAVOURITE",
-                  style: TextStyle(fontSize: 13),
-                ),
-                activeColor: Colors.red,
-                inactiveColor: Colors.grey),
-            BottomNavyBarItem(
-                icon: Icon(
-                  Icons.menu,
-                  color: Colors.grey,
-                ),
-                title: Text("MORE"),
-                activeColor: Colors.deepOrange,
-                inactiveColor: Colors.black)
-          ],
-        ),
+              ),
+              activeColor: Colors.red,
+              inactiveColor: Colors.grey),
+          BottomNavyBarItem(
+              icon: Icon(
+                Icons.info_outline,
+              ),
+              title: Text("MORE"),
+              activeColor: Colors.deepOrange,
+              inactiveColor: Colors.grey)
+        ],
       ),
       body: _buildScreens().elementAt(_currentIndex),
     );

@@ -1,8 +1,10 @@
-import 'package:flut/screens/home/home_controller.dart';
-
+import 'package:admob_flutter/admob_flutter.dart';
+import 'package:flut/screens/home/intro.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+   WidgetsFlutterBinding.ensureInitialized();
+  Admob.initialize();
   runApp(MyApp());
 }
 
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(elevation: 0, color: Colors.white),
       ),
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: Intro(),
     );
   }
 }

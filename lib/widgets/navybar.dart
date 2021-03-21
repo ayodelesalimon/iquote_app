@@ -69,7 +69,7 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(right: 8),
+                padding: const EdgeInsets.only(right: 18),
                 child: IconTheme(
                   data: IconThemeData(
                       size: iconSize,
@@ -104,7 +104,7 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 56,
-      padding: EdgeInsets.only(left: 8, right: 8, top: 6, bottom: 6),
+      padding: EdgeInsets.only(left: 18, right: 18, top: 6, bottom: 6),
       decoration: BoxDecoration(
           color: backgroundColor,
           boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 2)]),
